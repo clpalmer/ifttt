@@ -1,7 +1,7 @@
 const IFTTTConfig = require('../../config/ifttt.config.js');
 
 module.exports.status = (req, res) => {
-  if (req.headers['IFTTT-Service-Key'] !== IFTTTConfig.serviceKey) {
+  if (req.headers['ifttt-service-key'] !== IFTTTConfig.serviceKey) {
     console.log('Headers: ' + JSON.stringify(req.headers));
     return res.status(401).send({
       message: 'Unauthorized'
@@ -12,7 +12,7 @@ module.exports.status = (req, res) => {
 };
 
 module.exports.setup = (req, res) => {
-  if (req.headers['IFTTT-Service-Key'] !== IFTTTConfig.serviceKey) {
+  if (req.headers['ifttt-service-key'] !== IFTTTConfig.serviceKey) {
     return res.status(401).send({
       message: 'Unauthorized'
     });
