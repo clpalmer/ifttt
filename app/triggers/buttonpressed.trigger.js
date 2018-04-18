@@ -27,5 +27,5 @@ const buttonPressedTrigger = (req, res) => {
 }
 
 module.exports = (app) => {
-  app.post('/ifttt/v1/triggers/button_pressed', buttonPressedTrigger);
+  app.post('/ifttt/v1/triggers/buttonpressed', buttonPressedTrigger);
 }
