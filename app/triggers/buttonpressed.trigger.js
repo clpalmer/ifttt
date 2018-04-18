@@ -4,9 +4,7 @@ const IFTTTConfig = require('../../config/ifttt.config.js');
 const buttonPressedTrigger = (req, res) => {
   if (req.headers['ifttt-service-key'] !== IFTTTConfig.serviceKey) {
     console.log('Headers: ' + JSON.stringify(req.headers['ifttt-service-key']));
-    return res.status(401).send({
-      message: 'Unauthorized'
-    });
+    return res.status(401).send({errors:[{message:'401'}]});
   }
 
   if (req.body.limit === 0) {
