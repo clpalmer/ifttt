@@ -1,6 +1,6 @@
 const ButtonPress = require('../models/buttonpress.model.js');
 
-exports.create = (req, res) => {
+module.exports.create = (req, res) => {
   if(!req.body.buttonId) {
     return res.status(400).send({
       message: "ERROR: Missing buttonId"
