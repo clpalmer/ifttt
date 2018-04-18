@@ -1,0 +1,30 @@
+{
+  "name": "ifttt",
+  "version": "1.0.0",
+  "description": "IFTTT Server & Client",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clpalmer/ifttt.git"
+  },
+  "keywords": [
+    "IFTTT",
+    "nodejs",
+    "express",
+    "mongodb"
+  ],
+  "author": "Clancy Palmer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/clpalmer/ifttt/issues"
+  },
+  "homepage": "https://github.com/clpalmer/ifttt#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.15"
+  }
+}
