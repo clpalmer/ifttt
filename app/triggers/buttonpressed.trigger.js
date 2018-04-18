@@ -17,7 +17,7 @@ const buttonPressedTrigger = (req, res) => {
               buttonId: bp.buttonId,
               meta: {
                 id: bp._id,
-                timestamp: bp.createdAt.getTime()
+                timestamp: bp.createdAt.getTime() / 1000
               }
             }
           })
