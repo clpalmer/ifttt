@@ -18,7 +18,7 @@ module.exports.setup = (req, res) => {
   }
 
   res.send({
-    data = {
+    data: {
       samples: {
         actions: {
         },
