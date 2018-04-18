@@ -21,7 +21,7 @@ module.exports.create = (req, res) => {
   });
 };
 
-exports.findAll = (req, res) => {
+module.exports.findAll = (req, res) => {
   ButtonPress.find()
   .then(bp => {
     res.send(bp);

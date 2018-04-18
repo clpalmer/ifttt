@@ -26,4 +26,5 @@ app.listen(3001, () => {
 });
 
 require('./app/routes/buttonpress.routes.js')(app);
+require('./app/routes/ifttt.routes.js')(app);
 require('./app/triggers/buttonpressed.trigger.js')(app);
