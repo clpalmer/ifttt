@@ -11,15 +11,17 @@ const buttonPressedTrigger = (req, res) => {
           message: err || "Internal Server Error"
         });
       } else {
-        res.send(bps.map((bp) => {
-          return {
-            buttonId: bp.buttonId,
-            meta: {
-              id: bp._id,
-              timestamp: bp.createdAt.getTime()
+        res.send({
+          data: bps.map((bp) => {
+            return {
+              buttonId: bp.buttonId,
+              meta: {
+                id: bp._id,
+                timestamp: bp.createdAt.getTime()
+              }
             }
-          }
-        }));
+          })
+        });
       }
     })
 }
