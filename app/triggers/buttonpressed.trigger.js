@@ -1,6 +1,26 @@
 const ButtonPress = require('../models/buttonpress.model.js');
+const IFTTTConfig = require('../../config/ifttt.config.js');
+
+module.exports.status = (req, res) => {
+  if (req.headers['ifttt-service-key'] !== IFTTTConfig.serviceKey) {
+    console.log('Headers: ' + JSON.stringify(req.headers['ifttt-service-key']));
+    return res.status(401).send({
+      message: 'Unauthorized'
+    });
+  }
 
 const buttonPressedTrigger = (req, res) => {
+  if (req.headers['ifttt-service-key'] !== IFTTTConfig.serviceKey) {
+    console.log('Headers: ' + JSON.stringify(req.headers['ifttt-service-key']));
+    return res.status(401).send({
+      message: 'Unauthorized'
+    });
+  }
+
+  if (req.body.limit === 0) {
+    return res.send({data: []});
+  }
+
   ButtonPress
     .find(/* TODO: Limit to requested user/buttonId/etc */)
     .sort({'createdAt': -1})
