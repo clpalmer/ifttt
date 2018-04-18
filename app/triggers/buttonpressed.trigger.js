@@ -14,7 +14,8 @@ const buttonPressedTrigger = (req, res) => {
         res.send({
           data: bps.map((bp) => {
             return {
-              buttonId: bp.buttonId,
+              button_id: bp.buttonId,
+              created_at: bp.createdAt,
               meta: {
                 id: bp._id,
                 timestamp: Math.round(bp.createdAt.getTime() / 1000)
