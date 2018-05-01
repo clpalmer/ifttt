@@ -1,13 +1,8 @@
-const ButtonPress = require('../models/buttonpress.model.js');
-const IFTTTConfig = require('../../config/ifttt.config.js');
-const Button = require('../models/button.model.js');
+const IFTTTConfig = require('../../../config/ifttt.config.js');
+const Button = require('../../models/button.model.js');
+const ButtonPress = require('../../models/buttonpress.model.js');
 
 const buttonPressedTrigger = (req, res) => {
-  if (req.headers['ifttt-service-key'] !== IFTTTConfig.serviceKey) {
-    console.log('Headers: ' + JSON.stringify(req.headers['ifttt-service-key']));
-    return res.status(401).send({errors:[{message:'401'}]});
-  }
-
   if (!req.body.triggerFields || !req.body.triggerFields.button_id) {
     return res.status(400).send({errors:[{message:'400 - Missing button_id'}]});
   }
@@ -43,11 +38,6 @@ const buttonPressedTrigger = (req, res) => {
 }
 
 const buttonPressedTriggerOptions = (req, res) => {
-  if (req.headers['ifttt-service-key'] !== IFTTTConfig.serviceKey) {
-    console.log('Headers: ' + JSON.stringify(req.headers['ifttt-service-key']));
-    return res.status(401).send({errors:[{message:'401'}]});
-  }
-
   Button.find({}, (err, buttons) => {
     let options = [];
     for (let button of buttons) {

@@ -1,0 +1,41 @@
+body {
+  position: relative;
+}
+body > .container {
+  position: absolute;
+  top: 56px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.modal-title-button {
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  margin-right: 0.75rem;
+}
+.login-form .icon-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-top: -40px;
+  margin-bottom: 10px;
+}
+.login-form .icon {
+  line-height: 80px;
+  font-size: 36px;
+  color: white;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.alert button.close i {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.flash-container {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
