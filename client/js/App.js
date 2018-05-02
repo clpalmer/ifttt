@@ -1,15 +1,18 @@
 import React from 'react';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { StyleProvider } from 'native-base';
+import { PersistGate } from 'redux-persist/lib/integration/react';
 import Routes from './Routes';
 import getTheme from '../theme/components';
-import reducers from './reducers';
+import { persistor, store } from './lib/store';
+import Splash from './views/splash';
 
 export default () => (
-  <Provider store={createStore(reducers)}>
+  <Provider store={store}>
     <StyleProvider style={getTheme()}>
-      <Routes />
+      <PersistGate loading={<Splash />} persistor={persistor}>
+        <Routes />
+      </PersistGate>
     </StyleProvider>
   </Provider>
 );

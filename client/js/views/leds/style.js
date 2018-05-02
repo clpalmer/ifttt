@@ -1,8 +1,8 @@
 export default {
-  ledCircleOn: {
+  ledOn: {
     color: 'green',
   },
-  ledCircleOff: {
+  ledOff: {
     color: 'red',
   },
 };

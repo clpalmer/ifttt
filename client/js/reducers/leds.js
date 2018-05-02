@@ -20,7 +20,6 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
-  console.log('LED ACTION: ',action)
   if (action.type === TOGGLE_LED) {
     const leds = [];
     state.leds.forEach((led) => {

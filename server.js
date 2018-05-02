@@ -5,7 +5,6 @@ const dbConfig = require('./config/database.config.js')
 const apiKey = require('./config/apikey.config.js')
 const LED = require('./app/models/led.model.js');
 const Button = require('./app/models/button.model.js');
-const isPi = require('detect-rpi');
 const morganBody = require('morgan-body');
 const User = require('./app/models/user.model.js');
 const session = require('express-session');
@@ -89,28 +88,6 @@ mongoose.connect(dbConfig.url)
     console.log('Failed to connect to DB (' + err + ')');
     process.exit();
   });
-
-// Configure LED pins
-LED.find({}, (err, leds) => {
-  for (let led of leds) {
-    if (led.id === '00000000-0000-0000-000000000000') {
-      // Skip test LED
-      continue;
-    }
-    if (isPi()) {
-      rpio.open(led.pinNumber, rpio.OUTPUT, (1 - led.onValue));
-    }
-  }
-});
-
-// Configure Button pins
-Button.find({}, (err, buttons) => {
-  for (let button of buttons) {
-    if (isPi()) {
-      rpio.open(button.pinNumber, rpio.OUTPUT, led.onValue ? rpio.LOW : rpio.HIGH);
-    }
-  }
-});
 
 // listen for requests
 app.listen(3001, () => {

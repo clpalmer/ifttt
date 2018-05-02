@@ -5,7 +5,6 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
-  console.log('Drawer ACTION:',action);
   if (action.type === OPEN_DRAWER) {
     return {
       ...state,

@@ -6,6 +6,7 @@ import { Text, Body, Left, Right, ListItem, List, Icon } from 'native-base';
 import Layout from '../layout';
 import style from './style';
 import { toggleLed } from '../../actions/leds';
+import Debug from '../../lib/debug';
 
 class Leds extends React.Component {
   static propTypes = {
@@ -23,19 +24,18 @@ class Leds extends React.Component {
   }
 
   toggleLed(id, value) {
-    console.log('Calling toggleLed');
+    Debug.log('Calling toggleLed');
     this.props.toggleLed(id, value);
   }
   render() {
     const listItems = [];
-    console.log('Checking leds:', this.props.leds);
+    Debug.log('Checking leds:', this.props.leds);
     if (Array.isArray(this.props.leds)) {
       this.props.leds.forEach((led) => {
-        const id = 'led_' + led.id;
         const li = (
-          <ListItem icon key={id}>
+          <ListItem icon key={`led_${led.id}`}>
             <Left>
-              <Icon type="FontAwesome" name="circle" style={led.on ? style.ledCircleOn : style.ledCircleOff} />
+              <Icon name="power" style={led.on ? style.ledOn : style.ledOff} />
             </Left>
             <Body>
               <Text>{led.name} - {led.pin} - {led.onValue}</Text>
