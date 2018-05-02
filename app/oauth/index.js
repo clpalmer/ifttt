@@ -12,6 +12,7 @@ module.exports = (app) => {
       }
     },
     useErrorHandler: true,
+    requireClientAuthentication: {password: false},
   });
 
   app.all('/oauth2/authorize', app.authenticate(), app.oauth.authorize());
