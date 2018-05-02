@@ -1,0 +1,64 @@
+<div class="row justify-content-center align-items-center h-100 home">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body text-center">
+        <h4 class="card-title">
+          Button Presses
+          <span class="float-right fa-stack cursor-pointer modal-title-button" data-toggle="modal" data-target="#addButtonpressModal">
+            <i class="fa fa-square fa-stack-2x text-success"></i>
+            <i class="fa fa-plus fa-stack-1x text-white"></i>
+          </span>
+        </h4>
+        <% if (typeof(error) !== 'undefined') { %>
+        <%= JSON.stringify(error) %>
+        <% } else { %>
+        <table class="table">
+          <tr>
+            <th>Button Name</th>
+            <th>Button ID</th>
+            <th>Time</th>
+          </tr>
+          <% for (let b of buttonPresses) { %>
+          <tr>
+            <td><%= b.button.name %></td>
+            <td><%= b.button.id %></td>
+            <td><%= b.updatedAt %></td>
+          </tr>
+          <% } %>
+        </table>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="addButtonpressModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <form action="/buttonpresses" method="POST">
+        <div class="modal-header">
+          <h5 class="modal-title">Press Button</h5>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="button-id">Button ID</label>
+            <select class="form-control" id="button-id" name="buttonid">
+              <%
+                var selected = false;
+                for (b of buttons) {
+              %>
+                  <option value="<%= b.id %>"<%= (!selected ? ' selected="selected"' : '') %>><%= b.name %></option>
+              <%
+                  selected = true;
+                }
+              %>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Press</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

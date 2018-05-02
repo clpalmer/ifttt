@@ -1,8 +1,9 @@
 const User = require('../models/user.model.js');
+const ButtonPress = require('../models/buttonpress.model.js');
 const bcrypt = require('bcrypt');
 
 module.exports.index = (req, res) => {
-  return res.render('app/index', {user: req.session.user});
+  return res.render('app/index');
 };
 
 module.exports.login = (req, res) => {

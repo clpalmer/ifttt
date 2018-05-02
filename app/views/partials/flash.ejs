@@ -1,0 +1,13 @@
+<%
+alertTypes = {
+  success: 'success',
+  error: 'danger',
+  info: 'primary',
+};
+for (f of locals.getFlashes()) { 
+%>
+  <div class="alert alert-<%= alertTypes[f.type] || 'secondary' %> alert-dismissable fade show">
+    <%= f.msg %>
+    <button type="button" data-dismiss="alert" class="close cursor-pointer"><i class="fa fa-times"></i></button>
+  </div>
+<% } %>

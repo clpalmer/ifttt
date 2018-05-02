@@ -2,7 +2,7 @@
   <div class="col-md-4">
     <div class="card">
       <div class="card-body text-center">
-        <h4 class="card-title">Welcome <%= user.firstName %> <% user.lastName %></h4>
+        <h4 class="card-title">Welcome <%= locals.user.firstName %> <%= locals.user.lastName %></h4>
         <a href="/logout" class="btn btn-primary btn-block btn-lg pt-10">Logout</a>
       </div>
     </div>

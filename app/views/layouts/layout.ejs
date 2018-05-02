@@ -1,8 +1,15 @@
 <html>
 <% include ../partials/head %>
-<body class="container">
+<body>
   <% include ../partials/header %>
-  <%- body %>
+  <div class="flash-container">
+    <div class="container pt-4 pb-4">
+      <% include ../partials/flash %>
+    </div>
+  </div>
+  <div class="container">
+    <%- body %>
+  </div>
   <% include ../partials/footer %>
 </body>
 </html>
