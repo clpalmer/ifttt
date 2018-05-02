@@ -1,26 +1,47 @@
 {
-  "name": "IFTTTClient",
-  "version": "0.1.0",
+  "name": "IFTTTNode",
+  "version": "2.1.0",
   "private": true,
-  "devDependencies": {
-    "react-native-scripts": "1.13.2",
-    "jest-expo": "26.0.0",
-    "react-test-renderer": "16.3.0-alpha.1"
-  },
-  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
-    "start": "react-native-scripts start",
-    "eject": "react-native-scripts eject",
-    "android": "react-native-scripts android",
-    "ios": "react-native-scripts ios",
-    "test": "jest"
-  },
-  "jest": {
-    "preset": "jest-expo"
+    "postinstall": "remotedev-debugger",
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "eslint": "eslint",
+    "eject-native-base": "node node_modules/native-base/ejectTheme.js"
   },
   "dependencies": {
-    "expo": "^26.0.0",
-    "react": "16.3.0",
-    "react-native": "~0.54.1"
+    "color": "^3.0.0",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.1",
+    "native-base": "^2.4.3",
+    "prop-types": "^15.6.1",
+    "react": "^16.3.2",
+    "react-native": "^0.55.3",
+    "react-native-code-push": "^5.3.2",
+    "react-native-easy-grid": "^0.1.17",
+    "react-native-modalbox": "^1.4.2",
+    "react-native-navigation-redux-helpers": "^0.5.0",
+    "react-native-router-flux": "^4.0.0-beta.28",
+    "react-native-scrollable-tab-view": "^0.8.0",
+    "react-native-vector-icons": "^4.6.0",
+    "react-navigation": "^1.5.11",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-form": "^7.3.0",
+    "redux-persist": "^5.9.1",
+    "redux-thunk": "^2.2.0",
+    "remote-redux-devtools": "^0.5.12"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.3",
+    "babel-preset-react-native": "^4.0.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-import-resolver-node": "^0.3.2",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "eslint-plugin-react-native": "^3.2.1",
+    "remote-redux-devtools-on-debugger": "^0.8.3",
+    "remotedev-server": "^0.2.4"
   }
 }

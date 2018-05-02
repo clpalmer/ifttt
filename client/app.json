@@ -1,5 +1,4 @@
 {
-  "expo": {
-    "sdkVersion": "26.0.0"
-  }
+  "name": "IFTTT Node",
+  "displayName": "IFTTT Node"
 }
