@@ -11,6 +11,7 @@ import Leds from './views/leds';
 import Buttons from './views/buttons';
 import Splash from './views/splash';
 import Login from './views/login';
+import Logout from './views/logout';
 
 import SideBar from './components/sidebar';
 import IFTTTApi from './lib/iftttapi';
@@ -30,6 +31,7 @@ class Routes extends Component {
     drawerOpen: PropTypes.bool.isRequired,
     session: PropTypes.shape({
       loading: PropTypes.bool.isRequired,
+      accessToken: PropTypes.string,
     }).isRequired,
   }
 
@@ -56,28 +58,34 @@ class Routes extends Component {
     }
   }
   render() {
+    let content = null;
+    if (this.props.session.loading) {
+      content = <Splash />;
+    } else if (!this.props.session.accessToken) {
+      content = <Login />;
+    } else {
+      content = (
+        <ConnectedRouter
+          createReducer={reducerCreate}
+          backAndroidHandler={() => {}}
+        >
+          <Scene key="root">
+            <Scene key="leds" hideNavBar component={Leds} initial />
+            <Scene key="buttons" hideNavBar component={Buttons} />
+            <Scene key="logout" hideNavBar component={Logout} />
+          </Scene>
+        </ConnectedRouter>
+      );
+    }
     return (
       <StyleProvider style={getTheme()}>
-        {
-          this.props.session.loading ?
-            <Splash /> :
-            <Drawer
-              ref={(ref) => { this._drawer = ref; }}
-              content={<SideBar navigator={this._navigator} />}
-              onClose={() => this.closeDrawer()}
-            >
-              <ConnectedRouter
-                createReducer={reducerCreate}
-                backAndroidHandler={() => {}}
-              >
-                <Scene key="root">
-                  <Scene key="login" hideNavBar component={Login} />
-                  <Scene key="leds" hideNavBar component={Leds} />
-                  <Scene key="buttons" hideNavBar component={Buttons} />
-                </Scene>
-              </ConnectedRouter>
-            </Drawer>
-        }
+        <Drawer
+          ref={(ref) => { this._drawer = ref; }}
+          content={<SideBar navigator={this._navigator} />}
+          onClose={() => this.closeDrawer()}
+        >
+          {content}
+        </Drawer>
       </StyleProvider>
     );
   }

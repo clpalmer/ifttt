@@ -1,4 +1,4 @@
-import { TOGGLE_LED } from '../actions/leds';
+import { TOGGLE_LED, SET_LEDS } from '../actions/leds';
 
 const initialState = {
   leds: [
@@ -20,7 +20,11 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
-  if (action.type === TOGGLE_LED) {
+  if (action.type === SET_LEDS) {
+    return {
+      leds: action.leds,
+    };
+  } else if (action.type === TOGGLE_LED) {
     const leds = [];
     state.leds.forEach((led) => {
       const l = led;

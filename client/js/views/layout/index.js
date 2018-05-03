@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Container, Header, Title, Content, Body, Left, Right, Icon, Button } from 'native-base';
-import { Actions } from 'react-native-router-flux';
 import { openDrawer, closeDrawer } from '../../actions/drawer';
 
 import AppFooter from '../../components/appfooter';
 import style from './style';
 
-const Layout = props => {
+const Layout = (props) => {
   let header = null;
   if (!props.noHeader) {
-    header = <Header>
+    header = (
+      <Header>
         <Left>
           <Button
             transparent
@@ -27,10 +27,11 @@ const Layout = props => {
           </Button>
         </Left>
         <Body>
-          <Title>{Actions.currentScene}</Title>
+          <Title>{props.user.name}</Title>
         </Body>
         <Right />
-      </Header>;
+      </Header>
+    );
   }
 
   let footer = null;
@@ -59,6 +60,10 @@ Layout.propTypes = {
   closeDrawer: PropTypes.func.isRequired,
   noHeader: PropTypes.bool,
   contentContainerStyle: PropTypes.object,
+  user: PropTypes.shape({
+    name: PropTypes.string,
+    id: PropTypes.string,
+  }).isRequired,
 };
 
 Layout.defaultProps = {
@@ -66,10 +71,15 @@ Layout.defaultProps = {
   tab: '',
   noHeader: false,
   contentContainerStyle: {},
+  user: {
+    name: '',
+    id: '',
+  },
 };
 
 const mapStateToProps = state => ({
   drawerOpen: state.drawer.drawerOpen,
+  user: state.session.user,
 });
 
 const bindActions = dispatch => ({

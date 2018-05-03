@@ -12,13 +12,16 @@ const datas = [
     name: 'LEDs',
     route: 'leds',
     icon: 'bulb',
-    bg: '#DA4437',
   },
   {
     name: 'Buttons',
     route: 'buttons',
     icon: 'disc',
-    bg: '#1EBC7C',
+  },
+  {
+    name: 'Sign Out',
+    route: 'logout',
+    icon: 'exit',
   },
 ];
 const SideBar = props => (

@@ -38,7 +38,7 @@ class Leds extends React.Component {
               <Icon name="power" style={led.on ? style.ledOn : style.ledOff} />
             </Left>
             <Body>
-              <Text>{led.name} - {led.pin} - {led.onValue}</Text>
+              <Text>{led.name}</Text>
             </Body>
             <Right>
               <Switch value={led.on} onValueChange={() => this.toggleLed(led.id, !led.on)} />
@@ -50,7 +50,7 @@ class Leds extends React.Component {
     }
 
     return (
-      <Layout tab="buttons">
+      <Layout tab="leds">
         <List>
           {listItems}
         </List>

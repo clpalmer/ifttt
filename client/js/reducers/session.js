@@ -1,4 +1,4 @@
-import { SET_TOKEN, LOGGED_IN, LOGGED_OUT } from '../actions/session';
+import { SET_TOKEN, LOGGED_IN, LOGGED_OUT, INIT_COMPLETE } from '../actions/session';
 
 const initialState = {
   loading: true,
@@ -28,6 +28,12 @@ export default function (state = initialState, action) {
     return {
       ...state,
       user: action.user,
+    };
+  }
+
+  if (action.type === INIT_COMPLETE) {
+    return {
+      ...state,
       loading: false,
     };
   }
