@@ -1,12 +1,18 @@
 const ButtonPress = require('../models/buttonpress.model.js');
 const Button = require('../models/button.model.js');
 
-module.exports.index = (req, res) => {
+let getButtons = (req, res, api) => {
   Button.find().then((buttons) => {
     res.locals.buttons = buttons;
     ButtonPress.find().sort({createdAt: -1}).populate('button').then((buttonPresses) => {
+      if (api) {
+        return res.send(buttonPresses);
+      }
       return res.render('buttonpresses/index', {buttonPresses: buttonPresses || []});
     }).catch((err) => {
+      if (api) {
+        return res.status(500).send({error: 'Unable to press button'});
+      }
       return res.render('buttonpresses/index', {error: err});
     })
   }).catch((err) => {
@@ -57,6 +63,12 @@ let createButton = (req, res, api) => {
   });
 }
 
+module.exports.index = (req, res) => {
+  return getButtons(req, res, false);
+}
+module.exports.apiGetButtonPresses = (req, res) => {
+  return getButtons(req, res, true);
+}
 module.exports.create = (req, res) => {
   return createButton(req, res, false);
 };

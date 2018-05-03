@@ -1,7 +1,7 @@
 const isPi = require('detect-rpi');
-const rpio = require('rpio');
 const IFTTTConfig = require('../../../config/ifttt.config.js');
 const LED = require('../../models/led.model.js');
+const ClientApi = require('../../clientapi');
 
 const setLedAction = (req, res) => {
   if (!req.body.actionFields || !req.body.actionFields.state) {
@@ -21,10 +21,11 @@ const setLedAction = (req, res) => {
     }
 
     if (led.id !== '00000000-0000-0000-000000000000') {
-      // Skip test LED
-      if (isPi()) {
-        rpio.write(led.pin, req.body.actionFields.state === 'on' ? led.onValue : (1 - led.onValue));
-      }
+      ClientApi.action('setLed', {
+        id: led.id,
+        state: req.body.actionFields.state,
+        value: req.body.actionFields.state === 'on' ? led.onValue : (1 - led.onValue),
+      })
     }
 
     res.send({

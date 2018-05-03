@@ -5,5 +5,5 @@ module.exports = (app) => {
   app.post('/leds', app.authenticate(), c.create);
   app.delete('/leds/:id', app.authenticate(), c.destroy);
 
-  app.get('/api/leds', app.authenticateApi(), c.apiGetLEDs);
+  app.get('/api/leds', app.oauth.authenticate({scope: 'ifttt'}), c.apiGetLEDs);
 }

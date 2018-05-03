@@ -5,5 +5,5 @@ module.exports = (app) => {
   app.post('/buttons', app.authenticate(), c.create);
   app.delete('/buttons/:id', app.authenticate(), c.destroy);
 
-  app.get('/api/buttons', app.authenticateApi(), c.apiGetButtons);
+  app.get('/api/buttons', app.oauth.authenticate({scope: 'ifttt'}), c.apiGetButtons);
 }

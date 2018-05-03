@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose')
 const dbConfig = require('./config/database.config.js')
-const apiKey = require('./config/apikey.config.js')
 const LED = require('./app/models/led.model.js');
 const Button = require('./app/models/button.model.js');
 const morganBody = require('morgan-body');
@@ -43,19 +42,6 @@ app.authenticate = () => {
   }
 }
 
-app.authenticateApi = () => {
-  return (req, res, next) => {
-    if (req.headers['api-key'] && req.headers['api-secret']) {
-      console.log('authenticateApi -', req.headers['api-key'],'/',req.headers['api-secret']);
-      if (!apiKey || !apiKey[req.headers['api-key']] || apiKey[req.headers['api-key']] !== req.headers['api-secret']) {
-        return res.status(401).send();
-      }
-      return next();
-    }
-    return res.status(401).send({});
-  }
-}
-
 app.use((req, res, next) => {
   res.locals.currentPath = req.path.replace(/^\//,'');
 
@@ -77,7 +63,6 @@ app.use((req, res, next) => {
 
   next();
 })
-require('./app/oauth')(app)
 
 // Configuring the DB
 mongoose.promise = global.Promise;
@@ -90,10 +75,11 @@ mongoose.connect(dbConfig.url)
   });
 
 // listen for requests
-app.listen(3001, () => {
+const server = app.listen(3001, () => {
   console.log("Server is listening on port 3000");
 });
 
+require('./app/oauth')(app);  // This must be required first
 require('./app/routes')(app);
 require('./app/ifttt')(app);
-require('./app/oauth')(app)
+require('./app/clientapi').init(app);

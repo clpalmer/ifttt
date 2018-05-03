@@ -18,3 +18,4 @@ module.exports = (app) => {
   app.get('/ifttt/v1/status', validateIftttHeader, c.status);
   app.get('/ifttt/v1/user/info', app.oauth.authenticate({scope: 'ifttt'}), c.userInfo);
 }
+
