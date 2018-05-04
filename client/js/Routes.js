@@ -15,6 +15,7 @@ import Logout from './views/logout';
 
 import SideBar from './components/sidebar';
 import IFTTTApi from './lib/iftttapi';
+import ClientApi from './lib/clientapi';
 import Debug from './lib/debug';
 
 const reducerCreate = (params) => {
@@ -38,6 +39,7 @@ class Routes extends Component {
   componentDidMount() {
     Debug.log('Calling init');
     IFTTTApi.init();
+    ClientApi.init();
   }
 
   componentDidUpdate() {

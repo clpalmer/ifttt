@@ -7,6 +7,7 @@ import { setToken, loggedOut, loggedIn, initComplete } from '../actions/session'
 import { setLeds } from '../actions/leds';
 import { setButtons } from '../actions/buttons';
 import Debug from './debug';
+import ClientApi from './clientapi';
 
 const fetchUser = accessToken => (
   new Promise((resolve, reject) => {
@@ -144,6 +145,9 @@ export default {
   ),
   pressButton: (id) => {
     Debug.log('Pressing:', id);
+    ClientApi.send('buttonPress', {
+      id,
+    });
   },
 };
 
