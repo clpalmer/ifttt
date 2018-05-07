@@ -6,7 +6,7 @@ import { Text, Icon, View, Form, Item, Input, Button, Spinner } from 'native-bas
 import Layout from '../layout';
 import style from './style';
 import { toggleLed } from '../../actions/leds';
-import Tux from '../../../images/tux-cartman.png';
+import LoginImage from '../../../images/login.png';
 import IFTTTApi from '../../lib/iftttapi';
 
 class Splash extends React.Component {
@@ -69,12 +69,12 @@ class Splash extends React.Component {
     return (
       <Layout noHeader contentContainerStyle={style.contentContainer}>
         <View style={style.imageContainer}>
-          <Image style={style.image} source={Tux} /><Text style={style.text}>IFTTTNode</Text>
+          <Image style={style.image} source={LoginImage} />
         </View>
         <Form>
           <Text style={style.errorText}>{this.state.error ? 'Login failed - Please try again' : ' '}</Text>
-          <Item rounded style={{ marginBottom: 20 }}>
-            <Icon active={this.state.emailActive} type="FontAwesome" name="user" style={{ color: (this.state.emailActive ? 'black' : 'grey') }} />
+          <Item rounded style={{ marginBottom: 20, backgroundColor: 'white' }}>
+            <Icon active={this.state.emailActive} type="FontAwesome" name="user" style={{ color: (this.state.emailActive ? '#2b4251' : '#91b3bc') }} />
             <Input
               disabled={this.state.busy}
               keyboardType="email-address"
@@ -85,8 +85,8 @@ class Splash extends React.Component {
               onChangeText={(v) => { this.onChange('email', v); }}
             />
           </Item>
-          <Item rounded style={{ marginBottom: 20 }}>
-            <Icon active={this.state.passwordActive} type="FontAwesome" name="lock" style={{ color: (this.state.passwordActive ? 'black' : 'grey') }} />
+          <Item rounded style={{ marginBottom: 20, backgroundColor: 'white' }}>
+            <Icon active={this.state.passwordActive} type="FontAwesome" name="lock" style={{ color: (this.state.passwordActive ? '#2b4251' : '#91b3bc') }} />
             <Input
               disabled={this.state.busy}
               secureTextEntry
@@ -100,13 +100,13 @@ class Splash extends React.Component {
           <Button
             disabled={this.state.busy}
             block
-            style={{ marginBottom: 20 }}
+            style={{ marginBottom: 20, backgroundColor: '#45415e' }}
             onPress={this.onLogin}
           >
             {
               this.state.busy ?
-              <Spinner color="white" /> :
-              <Text>Sign In</Text>
+                <Spinner color="white" /> :
+                <Text>Sign In</Text>
             }
           </Button>
         </Form>

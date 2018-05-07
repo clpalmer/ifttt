@@ -2,7 +2,7 @@ export default {
   contentContainer: {
     justifyContent: 'center',
     flex: 1,
-    backgroundColor: '#009bdc',
+    backgroundColor: '#5b7d87',
   },
   imageContainer: {
     flexDirection: 'row',
@@ -10,8 +10,8 @@ export default {
     alignItems: 'center',
   },
   image: {
-    width: 96,
-    height: 96,
+    width: 177,
+    height: 106,
   },
   text: {
     paddingLeft: 20,

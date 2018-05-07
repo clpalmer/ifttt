@@ -23,7 +23,7 @@ class Logout extends React.Component {
     return (
       <Layout noHeader contentContainerStyle={style.contentContainer}>
         <Text style={style.text}>Signing out...</Text>
-        <Spinner color="black" />
+        <Spinner color="white" />
       </Layout>
     );
   }

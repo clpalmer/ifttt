@@ -8,10 +8,10 @@ import AppFooter from '../../components/appfooter';
 import style from './style';
 
 const Layout = (props) => {
-  let header = null;
+  let header = <Header androidStatusBarColor="#2b4251" style={{ display: 'none' }} />;
   if (!props.noHeader) {
     header = (
-      <Header>
+      <Header androidStatusBarColor="#2b4251">
         <Left>
           <Button
             transparent
@@ -39,7 +39,7 @@ const Layout = (props) => {
     footer = <AppFooter tab={props.tab} />;
   }
   return (
-    <Container>
+    <Container style={{ backgroundColor: 'white' }}>
       {header}
       <Content padder contentContainerStyle={props.contentContainerStyle}>
         {props.children}
@@ -63,7 +63,7 @@ Layout.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string,
     id: PropTypes.string,
-  }).isRequired,
+  }),
 };
 
 Layout.defaultProps = {

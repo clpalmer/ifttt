@@ -2,10 +2,10 @@ export default {
   contentContainer: {
     justifyContent: 'center',
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#5b7d87',
   },
   text: {
-    color: 'black',
+    color: 'white',
     textAlign: 'center',
   },
 };
