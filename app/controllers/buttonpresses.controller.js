@@ -1,5 +1,6 @@
 const ButtonPress = require('../models/buttonpress.model.js');
 const Button = require('../models/button.model.js');
+const Realtime = require('../ifttt/realtime.js');
 
 let getButtons = (req, res, api) => {
   Button.find().then((buttons) => {
@@ -41,6 +42,8 @@ let createButton = (req, res, api) => {
     ButtonPress.create({
       button: button._id,
     }).then((buttonpress) => {
+      Realtime.notifyButtonPress(button);
+
       if (api) {
         buttonpress.button = button;
         return res.send(buttonpress);
@@ -49,14 +52,14 @@ let createButton = (req, res, api) => {
       return res.redirect('/buttonpresses');
     }).catch((err) => {
       if (api) {
-        return res.status(500).send({error: 'Unable to press button'});
+        return res.status(500).send({error: 'Unable to press button - Error creating ButtonPress for button: ' + button._id});
       }
       req.flash('error', 'Unable to press button' + err);
       return res.redirect('/buttonpresses');
     });
   }).catch((err) => {
     if (api) {
-      return res.status(500).send({error: 'Unable to press button'});
+      return res.status(500).send({error: 'Unable to press button - Error finding Button'});
     }
     req.flash('error', 'Unable to press button');
     return res.redirect('/buttonpresses');

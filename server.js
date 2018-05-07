@@ -79,7 +79,8 @@ const server = app.listen(3001, () => {
   console.log("Server is listening on port 3000");
 });
 
-require('./app/oauth')(app);  // This must be required first
+require('./app/oauth').init(app);  // This must be required first
 require('./app/routes')(app);
 require('./app/ifttt')(app);
 require('./app/clientapi').init(app);
+require('./app/oauth').errors(app);  // This must be required last

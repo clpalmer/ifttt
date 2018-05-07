@@ -14,8 +14,9 @@ module.exports = (app) => {
   require('./actions/setled.action.js')(app);
   require('./triggers/buttonpressed.trigger.js')(app);
 
-  app.post('/ifttt/v1/test/setup', validateIftttHeader, c.setup);
-  app.get('/ifttt/v1/status', validateIftttHeader, c.status);
-  app.get('/ifttt/v1/user/info', app.oauth.authenticate({scope: 'ifttt'}), c.userInfo);
+  const r = IFTTTConfig.endpoints.base;
+  app.post(`${r}/test/setup`, validateIftttHeader, c.setup);
+  app.get(`${r}/status`, validateIftttHeader, c.status);
+  app.get(`${r}/user/info`, app.oauth.authenticate({scope: 'ifttt'}), c.userInfo);
 }
 

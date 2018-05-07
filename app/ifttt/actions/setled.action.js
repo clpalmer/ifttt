@@ -65,7 +65,9 @@ const setLedActionStateOptions = (req, res) => {
 }
 
 module.exports = (app) => {
-  app.post('/ifttt/v1/actions/setled/fields/led_id/options', app.oauth.authenticate({scope: 'ifttt'}), setLedActionLedIdOptions)
-  app.post('/ifttt/v1/actions/setled/fields/state/options', app.oauth.authenticate({scope: 'ifttt'}), setLedActionStateOptions);
-  app.post('/ifttt/v1/actions/setled', app.oauth.authenticate({scope: 'ifttt'}), setLedAction);
+  const r = `${IFTTTConfig.endpoints.actions}/setled`;
+
+  app.post(`${r}/fields/led_id/options`, app.oauth.authenticate({scope: 'ifttt'}), setLedActionLedIdOptions)
+  app.post(`${r}/fields/state/options`, app.oauth.authenticate({scope: 'ifttt'}), setLedActionStateOptions);
+  app.post(r, app.oauth.authenticate({scope: 'ifttt'}), setLedAction);
 }
