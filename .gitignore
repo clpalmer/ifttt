@@ -58,4 +58,4 @@ typings/
 .env
 
 # Custom config files
-*.config.custom.js
+#*.config.custom.js
