@@ -112,5 +112,4 @@ fastlane/Preview.html
 fastlane/screenshots
 
 # Custom config files
-config.custom.js
 *config.custom.js
