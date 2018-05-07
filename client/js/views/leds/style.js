@@ -1,8 +1,8 @@
 export default {
   ledOn: {
-    color: 'green',
+    color: '#91b3bc',
   },
   ledOff: {
-    color: 'red',
+    color: '#cccccc',
   },
 };

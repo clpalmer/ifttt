@@ -2,7 +2,7 @@ export default {
   contentContainer: {
     justifyContent: 'center',
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#5b7d87',
   },
   imageContainer: {
     flexGrow: 1,
@@ -11,8 +11,8 @@ export default {
     alignItems: 'center',
   },
   image: {
-    width: 96,
-    height: 96,
+    width: 177,
+    height: 106,
   },
   text: {
     paddingLeft: 20,
@@ -20,8 +20,9 @@ export default {
     color: '#009bdc',
   },
   errorText: {
-    color: '#dc3545',
+    color: '#2e323c',
     paddingBottom: 10,
     paddingLeft: 10,
+    textAlign: 'center',
   },
 };
