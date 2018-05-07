@@ -66,24 +66,16 @@ module.exports.setup = (req, res) => {
     }
   });
 
-  User.create({
-    firstName: 'IFTTT',
-    lastName: 'Test',
-    email: 'ifttt@test.com',
-    scope: 'ifttt',
-    password: bcrypt.hashSync('iftttpw1!', 10),
-  }).then((user) => {
-    OAuthClient.create({
-      name:  'IFTTT Test Client',
-      id:  'ifttttest',
-      secret: 'iftttpw1!',
-      redirectUris: IFTTTConfig.authRedirectUrl,
-      grants: ['authorization_code', 'refresh_token'],
-      scope: 'ifttt',
-      accessTokenLifetime: 86400,
-      refreshTokenLifetime: 3153600000,
-      user: user._id,
-    }).then((client) => {
+  User.findOne({ email: 'test@test.com' }).then((user) => {
+    if (!user) {
+      return res.status(500).send({});
+    }
+
+    OAuthClient.findOne({ id: 'client' }).then((client) => {
+      if (!client) {
+        return res.status(500).send({});
+      }
+
       let token = crypto.createHash('sha1').update(crypto.randomBytes(256)).digest('hex');
       OAuthAccessToken.create({
         accessToken: token,

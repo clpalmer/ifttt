@@ -6,7 +6,7 @@ let config = {
     triggers: '/ifttt/v1/triggers',
     actions: '/ifttt/v1/actions',
   },
-  authRedirectUrl: 'https://ifttt.com/channels/nodeifttt/authorize',
+  authRedirectUrl: 'https://ifttt.com/channels/iftttnode/authorize',
 };
 
 try {
