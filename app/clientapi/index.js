@@ -4,6 +4,7 @@ const WebSocket = require("ws");
 const OAuthError = require('oauth2-server/lib/errors/oauth-error');
 const Button = require('../models/button.model.js');
 const ButtonPress = require('../models/buttonpress.model.js');
+const Realtime = require('../ifttt/realtime.js');
 
 let websocketServer = null;
 
@@ -80,6 +81,7 @@ module.exports = {
               button: button._id,
             }).then((buttonpress) => {
               buttonpress.button = button;
+              Realtime.notifyButtonPress(button);
               return client.send(JSON.stringify(buttonpress));
             }).catch((err) => {
               return client.send(JSON.stringify({error: 'Error creating button press', message: err}));

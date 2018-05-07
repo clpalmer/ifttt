@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ButtonPressSchema = Schema({
-  button:  { type : Schema.Types.ObjectId, ref: 'Button' },
+  button: { type : Schema.Types.ObjectId, ref: 'Button' },
 }, {
   timestamps: true
 });

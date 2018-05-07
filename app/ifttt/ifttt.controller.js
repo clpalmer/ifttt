@@ -34,30 +34,37 @@ module.exports.setup = (req, res) => {
       LED.create({
         id: '00000000-0000-0000-000000000000',
         name: 'Test LED',
-        onValue: 1
+        onValue: 1,
+        pin: 6,
       });
     }
   });
 
-  Button.findOne({id: '00000000-0000-0000-000000000000'}, (err, button) => {
-    if (!button) {
+  let createButtonPresses = (buttonId) => {
+    ButtonPress.find({button: buttonId}, (err, buttonpresses) => {
+      if (err || buttonpresses.length < 3) {
+        for (let i = 0; i < (3 - (buttonpresses.length || 0)); i++) {
+          ButtonPress.create({
+            button: buttonId
+          });
+        }
+      }
+    });
+  };
+
+  Button.findOne({id: '00000000-0000-0000-000000000000'}).then((button) => {
+    if (button) {
+      createButtonPresses(button._id);
+    } else {
       Button.create({
         id: '00000000-0000-0000-000000000000',
         name: 'Test Button',
         pin: 1
+      }).then((button) => {
+        createButtonPresses(button._id);
       });
     }
   });
-
-  ButtonPress.find({}, (err, buttonpresses) => {
-    if (err || buttonpresses.length < 3) {
-      for (let i = 0; i < (3 - (buttonpresses.length || 0)); i++) {
-        ButtonPress.create({
-          buttonId: '00000000-0000-0000-000000000000'
-        });
-      }
-    }
-  })
 
   User.create({
     firstName: 'IFTTT',
@@ -70,7 +77,7 @@ module.exports.setup = (req, res) => {
       name:  'IFTTT Test Client',
       id:  'ifttttest',
       secret: 'iftttpw1!',
-      redirectUris: 'https://ifttt.com/channels/nodeifttt/authorize',
+      redirectUris: IFTTTConfig.authRedirectUrl,
       grants: ['authorization_code', 'refresh_token'],
       scope: 'ifttt',
       accessTokenLifetime: 86400,

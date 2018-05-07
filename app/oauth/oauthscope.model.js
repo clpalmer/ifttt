@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var OAuthScopeSchema = Schema({
-  scope:  String,
+  scope: String,
   isDefault: Boolean
 });
 
