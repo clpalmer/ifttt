@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 
 const Debug = {
   log: (...args) => {
-    //console.log(...args);
+    console.log(...args);
   },
 };
 

@@ -6,6 +6,7 @@ const OAuthRefreshToken = require('../app/oauth//oauthrefreshtoken.model.js');
 const OAuthAuthorizationCode = require('../app/oauth//oauthauthorizationcode.model.js');
 const User = require('../app/models/user.model.js');
 const bcrypt = require('bcrypt');
+const IFTTTConfig = require('../config/ifttt.config.js');
 
 mongoose.promise = global.Promise;
 mongoose.connect(dbConfig.url).then(() => {
@@ -16,42 +17,24 @@ mongoose.connect(dbConfig.url).then(() => {
         OAuthRefreshToken.remove().then(() => {
           User.remove().then(() => {
             User.create({
-              firstName: 'Clancy',
-              lastName: 'Palmer',
-              email: 'clancyp@gmail.com',
+              firstName: 'Test',
+              lastName: 'Account',
+              email: 'test@test.com',
               scope: 'ifttt',
-              password: bcrypt.hashSync('Password1', 10),
+              password: bcrypt.hashSync('test', 10),
             }).then((user) => {
               OAuthClient.create({
                 name:  'Client',
                 id:  'client',
-                secret: 'testysecret1!',
-                redirectUris: 'http://localhost/cb',
+                secret: 'test',
+                redirectUris: IFTTTConfig.authRedirectUrl,
                 grants: ['authorization_code', 'password', 'refresh_token', 'client_credentials'],
                 scope: 'ifttt',
                 accessTokenLifetime: 86400,
                 refreshTokenLifetime: 3153600000,
                 user: user._id,
               }).then(() => {
-                User.create({
-                  firstName: 'IFTTT',
-                  lastName: 'User',
-                  email: 'ifttt@nowhere.com',
-                  scope: 'ifttt',
-                  password: bcrypt.hashSync('iftttpw1!', 10),
-                }).then((user) => {
-                  OAuthClient.create({
-                    name:  'IFTTT Client',
-                    id:  'ifttt',
-                    secret: 'iftttpw1!',
-                    redirectUris: 'https://ifttt.com/channels/nodeifttt/authorize',
-                    grants: ['authorization_code', 'refresh_token'],
-                    scope: 'ifttt',
-                    accessTokenLifetime: 86400,
-                    refreshTokenLifetime: 3153600000,
-                    user: user._id,
-                  }).then(() => {process.exit()});
-                });
+                process.exit();
               });
             });
           });

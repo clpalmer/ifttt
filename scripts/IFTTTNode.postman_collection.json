@@ -1,0 +1,566 @@
+{
+	"variables": [],
+	"info": {
+		"name": "IFTTTNode",
+		"_postman_id": "57fd46d2-d8b6-7c84-a5be-abd65fb256b2",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "OAuth Flows",
+			"description": "",
+			"item": [
+				{
+					"name": "Password Grant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"AccessToken\", data.access_token);",
+									"postman.setEnvironmentVariable(\"RefreshToken\", data.refresh_token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "https://{{iftttHost}}/oauth2/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "test@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "client",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "ifttt",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"AccessToken\", data.access_token);",
+									"postman.setEnvironmentVariable(\"RefreshToken\", data.refresh_token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "https://{{iftttHost}}/oauth2/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "refresh_token",
+									"type": "text"
+								},
+								{
+									"key": "refresh_token",
+									"value": "{{RefreshToken}}",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "client",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "test",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Client Credentials Grant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"AccessToken\", data.access_token);",
+									"postman.setEnvironmentVariable(\"RefreshToken\", data.refresh_token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "https://{{iftttHost}}/oauth2/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic Y2xpZW50OnRlc3Q=",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Authorize ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var location = postman.getResponseHeader(\"Location\");",
+									"var matches = /code=([a-z0-9]*)&/.exec(location);",
+									"postman.setEnvironmentVariable(\"code\", matches[1]);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": {
+							"raw": "https://{{iftttHost}}/oauth2/authorize?response_type=code&client_id=client&redirect_uri=https%3A%2F%2Fifttt.com%2Fchannels%2Fiftttnode%2Fauthorize&state=teststate&scope=ifttt",
+							"protocol": "https",
+							"host": [
+								"{{iftttHost}}"
+							],
+							"path": [
+								"oauth2",
+								"authorize"
+							],
+							"query": [
+								{
+									"key": "response_type",
+									"value": "code",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "client_id",
+									"value": "client",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "redirect_uri",
+									"value": "https%3A%2F%2Fifttt.com%2Fchannels%2Fiftttnode%2Fauthorize",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "state",
+									"value": "teststate",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "scope",
+									"value": "ifttt",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"description": "Based on Bearer Token in Password Grant"
+					},
+					"response": []
+				},
+				{
+					"name": "Authorization Grant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"AccessToken\", data.access_token);",
+									"postman.setEnvironmentVariable(\"RefreshToken\", data.refresh_token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "https://{{iftttHost}}/oauth2/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "authorization_code",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "{{code}}",
+									"type": "text"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "https://ifttt.com/channels/iftttnode/authorize",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "client",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "test",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Based on code in Authorize"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"AccessToken\", data.access_token);",
+									"postman.setEnvironmentVariable(\"RefreshToken\", data.refresh_token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "https://{{iftttHost}}/login?",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "test@test.com",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": "Based on code in Authorize"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POST /api/buttonpresses",
+			"request": {
+				"url": "https://{{iftttHost}}/api/buttonpresses",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{AccessToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"buttonid\": \"{{Button1}}\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST /ifttt/v1/actions/setled",
+			"request": {
+				"url": "https://{{iftttHost}}/ifttt/v1/actions/setled",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{AccessToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"actionFields\": {\n\t\t\"led_id\": \"12345678-1234-1234-123456789012\",\n\t\t\"state\": \"off\"\n\t}\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST /ifttt/v1/test/setup",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"AccessToken\", data.data.accessToken);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://{{iftttHost}}/ifttt/v1/test/setup",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "ifttt-service-key",
+						"value": "YTzrZMOUbIJ0_4tP7f4M_gWPDbJA6aaOkoRCq-p-f4pdv6atz5WfhIMTzxDuW7Zo",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST /ifttt/v1/triggers/buttonpressed",
+			"request": {
+				"url": "https://{{iftttHost}}/ifttt/v1/triggers/buttonpressed",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{AccessToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"triggerFields\": {\r\n        \"button_id\": \"00000000-0000-0000-000000000000\"\r\n    },\r\n    \"ifttt_source\": {\r\n        \"id\": \"77779937\",\r\n        \"url\": \"https://ifttt.com/myrecipes/personal/77779937\"\r\n    },\r\n    \"user\": {\r\n        \"timezone\": \"America/Vancouver\"\r\n    },\r\n    \"trigger_identity\": \"764f9d734d1370564105c56a97faba22e4762561\"\r\n}\r\n"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST IFTTT Realtime Notification",
+			"request": {
+				"url": "https://realtime.ifttt.com/v1/notifications",
+				"method": "POST",
+				"header": [
+					{
+						"key": "IFTTT-Service-Key",
+						"value": "YTzrZMOUbIJ0_4tP7f4M_gWPDbJA6aaOkoRCq-p-f4pdv6atz5WfhIMTzxDuW7Zo",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"data\":[\n\t\t{\n\t\t\t\"trigger_identity\": \"d7bfdc512183a7a43ad3e31171257b1c4bbd1401\"\n\t\t\t\n\t\t}\n\t]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET /api/buttons",
+			"request": {
+				"url": "https://{{iftttHost}}/api/buttons",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{AccessToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"buttonId\": \"03b148b4-4358-11e8-842f-0ed5f89f718b\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET /api/leds",
+			"request": {
+				"url": "https://{{iftttHost}}/api/leds",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{AccessToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"buttonId\": \"03b148b4-4358-11e8-842f-0ed5f89f718b\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET /api/buttonpresses",
+			"request": {
+				"url": "https://{{iftttHost}}/api/buttonpresses",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{AccessToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"buttonId\": \"03b148b4-4358-11e8-842f-0ed5f89f718b\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
